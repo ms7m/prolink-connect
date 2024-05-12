@@ -1,7 +1,7 @@
-import {Playlist} from 'src/entities';
-import LocalDatabase from 'src/localdb';
-import RemoteDatabase, {MenuTarget, Query} from 'src/remotedb';
-import {DeviceID, MediaSlot, PlaylistContents, TrackType} from 'src/types';
+import {Playlist} from 'src/entities.ts';
+import LocalDatabase from 'src/localdb/index.ts';
+import RemoteDatabase, {MenuTarget, Query} from 'src/remotedb/index.ts';
+import {DeviceID, MediaSlot, PlaylistContents, TrackType} from 'src/types.ts';
 
 export interface Options {
 	/**

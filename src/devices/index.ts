@@ -1,12 +1,11 @@
-import StrictEventEmitter from 'strict-event-emitter-types';
-
 import {Socket} from 'dgram';
 import {EventEmitter} from 'events';
 
-import {VIRTUAL_CDJ_NAME} from 'src/constants';
-import {Device, DeviceID} from 'src/types';
+import {VIRTUAL_CDJ_NAME} from 'src/constants.ts';
+import {Device, DeviceID, NativeTimeout} from 'src/types.ts';
 
-import {deviceFromPacket} from './utils';
+import {StrictEventEmitter} from 'strict-event-emitter-types';
+import {deviceFromPacket} from './utils.ts';
 
 interface Config {
 	/**
@@ -72,7 +71,7 @@ class DeviceManager {
 	 * Tracks device timeout handlers, as devices announce themselves these
 	 * timeouts will be updated.
 	 */
-	#deviceTimeouts = new Map<DeviceID, NodeJS.Timeout>();
+	#deviceTimeouts = new Map<DeviceID, NativeTimeout>();
 	/**
 	 * The EventEmitter which will be used to trigger device lifecycle events
 	 */
@@ -156,7 +155,7 @@ class DeviceManager {
 
 		const timeout = this.#config.deviceTimeout;
 		const newTimeout = setTimeout(this.#handleDisconnect, timeout, device);
-		this.#deviceTimeouts.set(device.id, newTimeout);
+		this.#deviceTimeouts.set(device.id, newTimeout as never);
 	};
 
 	#handleDisconnect = (removedDevice: Device) => {

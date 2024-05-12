@@ -1,23 +1,16 @@
-import { Mutex } from 'async-mutex';
-import { StrictEventEmitter } from 'strict-event-emitter-types';
+import {Mutex} from 'async-mutex';
+import {StrictEventEmitter} from 'strict-event-emitter-types';
 
-import { createHash } from 'crypto';
-import { EventEmitter } from 'events';
+import {createHash} from 'crypto';
+import {EventEmitter} from 'events';
 
 import DeviceManager from 'src/devices/index.ts';
-import { fetchFile, FetchProgress } from 'src/nfs/index.ts';
+import {fetchFile, FetchProgress} from 'src/nfs/index.ts';
 import StatusEmitter from 'src/status/index.ts';
-import {
-  Device,
-  DeviceID,
-  DeviceType,
-  MediaSlot,
-  MediaSlotInfo,
-  TrackType,
-} from 'src/types.ts';
+import {Device, DeviceID, DeviceType, MediaSlot, MediaSlotInfo, TrackType} from 'src/types.ts';
 
-import { MetadataORM } from './orm.ts';
-import { hydrateDatabase, HydrationProgress } from './rekordbox.ts';
+import {MetadataORM} from './orm.ts';
+import {hydrateDatabase, HydrationProgress} from './rekordbox.ts';
 
 /**
  * Rekordbox databases will only exist within these two slots

@@ -1,9 +1,8 @@
-
-import { UInt32 } from './fields.ts';
-import { Connection, LookupDescriptor } from './index.ts';
-import { Message } from './message/index.ts';
-import { Items, ItemType } from './message/item.ts';
-import { MessageType } from './message/types.ts';
+import {UInt32} from './fields.ts';
+import {Connection, LookupDescriptor} from './index.ts';
+import {Message} from './message/index.ts';
+import {Items, ItemType} from './message/item.ts';
+import {MessageType} from './message/types.ts';
 
 /**
  * Specifies the number of items we should request at a time in menu render

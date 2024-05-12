@@ -1,9 +1,9 @@
 import {Socket} from 'dgram';
 
-import {BEAT_PORT, PROLINK_HEADER} from 'src/constants';
-import {CDJStatus, Device} from 'src/types';
-import {buildName} from 'src/utils';
-import {udpSend} from 'src/utils/udp';
+import {BEAT_PORT, PROLINK_HEADER} from 'src/constants.ts';
+import {CDJStatus, Device} from 'src/types.ts';
+import {buildName} from 'src/utils/index.ts';
+import {udpSend} from 'src/utils/udp.ts';
 
 interface Options {
 	hostDevice: Device;

@@ -1,18 +1,18 @@
 import dgram, {Socket} from 'dgram';
 import {NetworkInterfaceInfoIPv4} from 'os';
 
-import {ANNOUNCE_PORT, BEAT_PORT, DEFAULT_VCDJ_ID, STATUS_PORT} from 'src/constants';
-import Control from 'src/control';
-import Database from 'src/db';
-import DeviceManager from 'src/devices';
-import LocalDatabase from 'src/localdb';
-import {MixstatusProcessor} from 'src/mixstatus';
-import RemoteDatabase from 'src/remotedb';
-import StatusEmitter from 'src/status';
-import {Device, NetworkState} from 'src/types';
-import {getMatchingInterface} from 'src/utils';
-import {udpBind, udpClose} from 'src/utils/udp';
-import {Announcer, getVirtualCDJ} from 'src/virtualcdj';
+import {ANNOUNCE_PORT, BEAT_PORT, DEFAULT_VCDJ_ID, STATUS_PORT} from 'src/constants.ts';
+import Control from 'src/control/index.ts';
+import Database from 'src/db/index.ts';
+import DeviceManager from 'src/devices/index.ts';
+import LocalDatabase from 'src/localdb/index.ts';
+import {MixstatusProcessor} from 'src/mixstatus/index.ts';
+import RemoteDatabase from 'src/remotedb/index.ts';
+import StatusEmitter from 'src/status/index.ts';
+import {Device, NetworkState} from 'src/types.ts';
+import {getMatchingInterface} from 'src/utils/index.ts';
+import {udpBind, udpClose} from 'src/utils/udp.ts';
+import {Announcer, getVirtualCDJ} from 'src/virtualcdj/index.ts';
 
 const connectErrorHelp =
 	'Network must be configured. Try using `autoconfigFromPeers` or `configure`';

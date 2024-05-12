@@ -1,9 +1,8 @@
+import {FetchProgress} from 'src/types.ts';
 
-import { FetchProgress } from 'src/types.ts';
-
-import { RpcConnection, RpcProgram } from './rpc.ts';
-import { flattenLinkedList } from './utils.ts';
-import { mount, nfs, portmap } from './xdr.ts';
+import {RpcConnection, RpcProgram} from './rpc.ts';
+import {flattenLinkedList} from './utils.ts';
+import {mount, nfs, portmap} from './xdr.ts';
 
 /**
  * How many bytes of a file should we read at once.

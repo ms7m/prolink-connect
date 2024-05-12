@@ -1,15 +1,15 @@
 import {Mutex} from 'async-mutex';
-import StrictEventEmitter from 'strict-event-emitter-types';
 
 import {Socket} from 'dgram';
 import {EventEmitter} from 'events';
 
-import {STATUS_PORT} from 'src/constants';
-import {CDJStatus, MediaSlotInfo} from 'src/types';
-import {udpSend} from 'src/utils/udp';
+import {STATUS_PORT} from 'src/constants.ts';
+import {CDJStatus, MediaSlotInfo} from 'src/types.ts';
+import {udpSend} from 'src/utils/udp.ts';
 
-import {makeMediaSlotRequest} from './media';
-import {mediaSlotFromPacket, statusFromPacket} from './utils';
+import {StrictEventEmitter} from 'strict-event-emitter-types';
+import {makeMediaSlotRequest} from './media.ts';
+import {mediaSlotFromPacket, statusFromPacket} from './utils.ts';
 
 interface StatusEvents {
 	/**

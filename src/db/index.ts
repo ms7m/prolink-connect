@@ -1,15 +1,15 @@
 import DeviceManager from 'src/devices/index.ts';
-import { Track } from 'src/entities.ts';
+import {Track} from 'src/entities.ts';
 import LocalDatabase from 'src/localdb/index.ts';
 import RemoteDatabase from 'src/remotedb/index.ts';
-import { Device, DeviceType, MediaSlot, PlaylistContents, TrackType, Waveforms } from 'src/types.ts';
+import {Device, DeviceType, MediaSlot, PlaylistContents, TrackType, Waveforms} from 'src/types.ts';
 
 import * as GetArtwork from './getArtwork.ts';
 import * as GetMetadata from './getMetadata.ts';
 import * as GetPlaylist from './getPlaylist.ts';
 import * as GetWaveforms from './getWaveforms.ts';
-	
-enum LookupStrategy {	
+
+enum LookupStrategy {
 	Remote,
 	Local,
 	NoneAvailable,
@@ -50,19 +50,19 @@ class Database {
 		const requiresCdjRemote =
 			device.type === DeviceType.CDJ && isUnanalyzed && this.cdjSupportsRemotedb;
 
-    return device.type === DeviceType.Rekordbox || requiresCdjRemote
-      ? LookupStrategy.Remote
-      : device.type === DeviceType.CDJ && type === TrackType.RB
-        ? LookupStrategy.Local
-        : LookupStrategy.NoneAvailable;
-  };
+		return device.type === DeviceType.Rekordbox || requiresCdjRemote
+			? LookupStrategy.Remote
+			: device.type === DeviceType.CDJ && type === TrackType.RB
+				? LookupStrategy.Local
+				: LookupStrategy.NoneAvailable;
+	};
 
-  #getMediaLookupStrategy = (device: Device, slot: MediaSlot) =>
-    device.type === DeviceType.Rekordbox && slot === MediaSlot.RB
-      ? LookupStrategy.Remote
-      : device.type === DeviceType.Rekordbox
-        ? LookupStrategy.NoneAvailable
-        : LookupStrategy.Local;
+	#getMediaLookupStrategy = (device: Device, slot: MediaSlot) =>
+		device.type === DeviceType.Rekordbox && slot === MediaSlot.RB
+			? LookupStrategy.Remote
+			: device.type === DeviceType.Rekordbox
+				? LookupStrategy.NoneAvailable
+				: LookupStrategy.Local;
 
 	/**
 	 * Reports weather or not the CDJs can be communcated to over the remote

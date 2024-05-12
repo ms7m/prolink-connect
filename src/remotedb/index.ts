@@ -1,17 +1,17 @@
-import { Mutex } from 'async-mutex';
+import {Mutex} from 'async-mutex';
 import * as ip from 'ip-address';
-import { PromiseSocket } from 'promise-socket';
+import {PromiseSocket} from 'promise-socket';
 
-import { Socket } from 'net';
+import {Socket} from 'net';
 
 import DeviceManager from 'src/devices/index.ts';
-import { Device, DeviceID, MediaSlot, TrackType } from 'src/types.ts';
+import {Device, DeviceID, MediaSlot, TrackType} from 'src/types.ts';
 
-import { REMOTEDB_SERVER_QUERY_PORT } from './constants.ts';
-import { readField, UInt32 } from './fields.ts';
-import { Message } from './message/index.ts';
-import { MessageType, Request, Response } from './message/types.ts';
-import { HandlerArgs, HandlerReturn, queryHandlers } from './queries.ts';
+import {REMOTEDB_SERVER_QUERY_PORT} from './constants.ts';
+import {readField, UInt32} from './fields.ts';
+import {Message} from './message/index.ts';
+import {MessageType, Request, Response} from './message/types.ts';
+import {HandlerArgs, HandlerReturn, queryHandlers} from './queries.ts';
 
 type Await<T> = T extends PromiseLike<infer U> ? U : T;
 

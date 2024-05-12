@@ -1,4 +1,4 @@
-import { CueAndLoop, HotcueButton } from 'src/types.ts';
+import {CueAndLoop, HotcueButton} from 'src/types.ts';
 
 /**
  * Create a CueAndLoop entry given common parameters
@@ -10,12 +10,12 @@ export const makeCueLoopEntry = (
 	length: number,
 	button: false | HotcueButton,
 ): null | CueAndLoop =>
-  button !== false
-    ? isLoop
-      ? {type: 'hot_loop', offset, length, button}
-      : {type: 'hot_cue', offset, button}
-    : isLoop
-      ? {type: 'loop', offset, length}
-      : isCue
-        ? {type: 'cue_point', offset}
-        : null;
+	button !== false
+		? isLoop
+			? {type: 'hot_loop', offset, length, button}
+			: {type: 'hot_cue', offset, button}
+		: isLoop
+			? {type: 'loop', offset, length}
+			: isCue
+				? {type: 'cue_point', offset}
+				: null;

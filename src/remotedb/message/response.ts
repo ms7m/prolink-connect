@@ -1,20 +1,20 @@
-import { makeCueLoopEntry } from 'src/localdb/utils.ts';
-import { Field } from 'src/remotedb/fields.ts';
-import { fieldsToItem } from 'src/remotedb/message/item.ts';
-import { Response } from 'src/remotedb/message/types.ts';
+import {makeCueLoopEntry} from 'src/localdb/utils.ts';
+import {Field} from 'src/remotedb/fields.ts';
+import {fieldsToItem} from 'src/remotedb/message/item.ts';
+import {Response} from 'src/remotedb/message/types.ts';
 import {
-  BeatGrid,
-  CueAndLoop,
-  HotcueButton,
-  WaveformDetailed,
-  WaveformHD,
-  WaveformPreview,
+	BeatGrid,
+	CueAndLoop,
+	HotcueButton,
+	WaveformDetailed,
+	WaveformHD,
+	WaveformPreview,
 } from 'src/types.ts';
 import {
-  convertWaveformHDData,
-  extractBitMask,
-  extractColor,
-  makeOffsetArray,
+	convertWaveformHDData,
+	extractBitMask,
+	extractColor,
+	makeOffsetArray,
 } from 'src/utils/converters.ts';
 
 /**

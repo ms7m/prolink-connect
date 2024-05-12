@@ -1,12 +1,11 @@
-
 import * as entities from 'src/entities.ts';
 
-import { Binary, UInt32 } from './fields.ts';
-import { Connection, LookupDescriptor, Query } from './index.ts';
-import { Message } from './message/index.ts';
-import { Item, Items, ItemType } from './message/item.ts';
-import { Request, Response } from './message/types.ts';
-import { fieldFromDescriptor, findColor, renderItems } from './utils.ts';
+import {Binary, UInt32} from './fields.ts';
+import {Connection, LookupDescriptor, Query} from './index.ts';
+import {Message} from './message/index.ts';
+import {Item, Items, ItemType} from './message/item.ts';
+import {Request, Response} from './message/types.ts';
+import {fieldFromDescriptor, findColor, renderItems} from './utils.ts';
 
 /**
  * This module contains logic for each type of query to understand what

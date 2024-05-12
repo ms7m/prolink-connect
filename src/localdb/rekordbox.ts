@@ -1,22 +1,22 @@
-import { KaitaiStream } from 'kaitai-struct';
+import {KaitaiStream} from 'kaitai-struct';
 
 import {
-  Album,
-  Artist,
-  Artwork,
-  Color,
-  EntityFK,
-  Genre,
-  Key,
-  Label,
-  Playlist,
-  PlaylistEntry,
-  Track,
+	Album,
+	Artist,
+	Artwork,
+	Color,
+	EntityFK,
+	Genre,
+	Key,
+	Label,
+	Playlist,
+	PlaylistEntry,
+	Track,
 } from 'src/entities.ts';
-import { MetadataORM, Table } from 'src/localdb/orm.ts';
-import { makeCueLoopEntry } from 'src/localdb/utils.ts';
-import { BeatGrid, CueAndLoop, HotcueButton, WaveformHD } from 'src/types.ts';
-import { convertWaveformHDData } from 'src/utils/converters.ts';
+import {MetadataORM, Table} from 'src/localdb/orm.ts';
+import {makeCueLoopEntry} from 'src/localdb/utils.ts';
+import {BeatGrid, CueAndLoop, HotcueButton, WaveformHD} from 'src/types.ts';
+import {convertWaveformHDData} from 'src/utils/converters.ts';
 
 import RekordboxAnlz from './kaitai/rekordbox_anlz.ksy';
 import RekordboxPdb from './kaitai/rekordbox_pdb.ksy';

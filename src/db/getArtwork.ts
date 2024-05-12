@@ -1,8 +1,8 @@
-import {Track} from 'src/entities';
-import LocalDatabase from 'src/localdb';
-import {fetchFile} from 'src/nfs';
-import RemoteDatabase, {MenuTarget, Query} from 'src/remotedb';
-import {Device, DeviceID, MediaSlot, TrackType} from 'src/types';
+import {Track} from 'src/entities.ts';
+import LocalDatabase from 'src/localdb/index.ts';
+import {fetchFile} from 'src/nfs/index.ts';
+import RemoteDatabase, {MenuTarget, Query} from 'src/remotedb/index.ts';
+import {Device, DeviceID, MediaSlot, TrackType} from 'src/types.ts';
 
 export interface Options {
 	/**

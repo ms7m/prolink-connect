@@ -1,18 +1,10 @@
-import { Buffer } from 'node:buffer';
-import { PromiseReadable } from 'promise-readable';
+import {Buffer} from 'node:buffer';
+import {PromiseReadable} from 'promise-readable';
 
-import { REMOTEDB_MAGIC } from 'src/remotedb/constants.ts';
-import {
-  Binary,
-  Field,
-  FieldType,
-  readField,
-  UInt16,
-  UInt32,
-  UInt8,
-} from 'src/remotedb/fields.ts';
-import { responseTransform } from 'src/remotedb/message/response.ts';
-import { MessageType, Response } from 'src/remotedb/message/types.ts';
+import {REMOTEDB_MAGIC} from 'src/remotedb/constants.ts';
+import {Binary, Field, FieldType, readField, UInt16, UInt32, UInt8} from 'src/remotedb/fields.ts';
+import {responseTransform} from 'src/remotedb/message/response.ts';
+import {MessageType, Response} from 'src/remotedb/message/types.ts';
 
 /**
  * Argument types are used in argument list fields. This is essentially

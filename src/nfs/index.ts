@@ -1,16 +1,15 @@
-
-import { Device, DeviceID, MediaSlot } from 'src/types.ts';
+import {Device, DeviceID, MediaSlot} from 'src/types.ts';
 
 import {
-  fetchFile as fetchFileCall,
-  FileInfo,
-  getExports,
-  lookupPath,
-  makeProgramClient,
-  mountFilesystem,
+	fetchFile as fetchFileCall,
+	FileInfo,
+	getExports,
+	lookupPath,
+	makeProgramClient,
+	mountFilesystem,
 } from './programs.ts';
-import { RetryConfig, RpcConnection, RpcProgram } from './rpc.ts';
-import { mount, nfs } from './xdr.ts';
+import {RetryConfig, RpcConnection, RpcProgram} from './rpc.ts';
+import {mount, nfs} from './xdr.ts';
 
 export interface FetchProgress {
 	read: number;

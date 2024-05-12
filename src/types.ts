@@ -1,18 +1,30 @@
 import type {Address4} from 'ip-address';
 
-import type {Playlist, Track} from './entities';
+import type {Playlist, Track} from './entities.ts';
 
-export * as CDJStatus from 'src/status/types';
+export * as CDJStatus from 'src/status/types.ts';
+
+export type NativeTimeout = ReturnType<typeof setTimeout>;
 
 /**
  * Re-export various types for the types only compile target
  */
 
-export type {Album, Artist, Artwork, Color, Genre, Key, Label, Playlist, Track} from './entities';
-export type {HydrationProgress} from './localdb/rekordbox';
-export type {MixstatusConfig, MixstatusProcessor} from './mixstatus';
-export type {ConnectedProlinkNetwork, NetworkConfig, ProlinkNetwork} from './network';
-export type {FetchProgress} from './nfs';
+export type {
+	Album,
+	Artist,
+	Artwork,
+	Color,
+	Genre,
+	Key,
+	Label,
+	Playlist,
+	Track,
+} from './entities.ts';
+export type {HydrationProgress} from './localdb/rekordbox.ts';
+export type {MixstatusConfig, MixstatusProcessor} from './mixstatus/index.ts';
+export type {ConnectedProlinkNetwork, NetworkConfig, ProlinkNetwork} from './network.ts';
+export type {FetchProgress} from './nfs/index.ts';
 
 /**
  * Known device types on the network

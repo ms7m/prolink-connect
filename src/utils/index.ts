@@ -2,7 +2,7 @@ import * as ip from 'ip-address';
 
 import {NetworkInterfaceInfo, NetworkInterfaceInfoIPv4, networkInterfaces} from 'os';
 
-import {Device, MediaSlot, TrackType} from 'src/types';
+import {Device, MediaSlot, TrackType} from 'src/types.ts';
 
 /**
  * Get the byte representation of the device name

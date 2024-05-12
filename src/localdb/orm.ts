@@ -2,11 +2,11 @@
 // @ts-nocheck - TODO: Fix types that resulted when updating better-sqlite3 from the fork (the code still works, but types are not correct)
 
 import sqlite3 from 'better-sqlite3';
-import { camelCase, mapKeys, mapValues, partition, snakeCase } from 'lodash';
+import {camelCase, mapKeys, mapValues, partition, snakeCase} from 'lodash';
 
-import { EntityFK, Playlist, PlaylistEntry, Track } from 'src/entities';
+import {EntityFK, Playlist, PlaylistEntry, Track} from 'src/entities';
 
-import { generateSchema } from './schema';
+import {generateSchema} from './schema';
 
 /**
  * Table names available
@@ -72,14 +72,14 @@ export class MetadataORM {
 
 		const stmt = this.#conn.prepare(`insert into ${table} (${columns}) values (${slots})`);
 
-    // Translate date and booleans
-    const data = mapValues(object, value =>
-      value instanceof Date
-        ? value.toISOString()
-        : typeof value === 'boolean'
-          ? Number(value)
-          : value
-    );
+		// Translate date and booleans
+		const data = mapValues(object, value =>
+			value instanceof Date
+				? value.toISOString()
+				: typeof value === 'boolean'
+					? Number(value)
+					: value,
+		);
 
 		stmt.run(data);
 	}

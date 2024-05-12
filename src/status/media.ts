@@ -1,6 +1,6 @@
-import {PROLINK_HEADER} from 'src/constants';
-import {Device, MediaSlot} from 'src/types';
-import {buildName} from 'src/utils';
+import {PROLINK_HEADER} from 'src/constants.ts';
+import {Device, MediaSlot} from 'src/types.ts';
+import {buildName} from 'src/utils/index.ts';
 
 interface Options {
 	/**

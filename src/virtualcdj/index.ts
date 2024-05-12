@@ -9,10 +9,10 @@ import {
 	PROLINK_HEADER,
 	VIRTUAL_CDJ_FIRMWARE,
 	VIRTUAL_CDJ_NAME,
-} from 'src/constants';
-import DeviceManager from 'src/devices';
-import {Device, DeviceID, DeviceType} from 'src/types';
-import {buildName} from 'src/utils';
+} from 'src/constants.ts';
+import DeviceManager from 'src/devices/index.ts';
+import {Device, DeviceID, DeviceType} from 'src/types.ts';
+import {buildName} from 'src/utils/index.ts';
 
 /**
  * Constructs a virtual CDJ Device.

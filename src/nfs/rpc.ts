@@ -62,11 +62,11 @@ export class RpcConnection {
 		this.mutex = new Mutex();
 	}
 
-  // TODO: Figure out what logic we can do here to determine if the socket is still open.
-  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
-  get connected() {
-    return true;
-  }
+	// TODO: Figure out what logic we can do here to determine if the socket is still open.
+	// eslint-disable-next-line @typescript-eslint/class-literal-property-style
+	get connected() {
+		return true;
+	}
 
 	setupRequest({program, version, procedure, data}: Omit<RpcCall, 'port'>) {
 		const auth = new rpc.Auth({
