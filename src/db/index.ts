@@ -1,15 +1,15 @@
-import DeviceManager from 'src/devices';
-import { Track } from 'src/entities';
-import LocalDatabase from 'src/localdb';
-import RemoteDatabase from 'src/remotedb';
-import { Device, DeviceType, MediaSlot, PlaylistContents, TrackType, Waveforms } from 'src/types';
+import DeviceManager from 'src/devices/index.ts';
+import { Track } from 'src/entities.ts';
+import LocalDatabase from 'src/localdb/index.ts';
+import RemoteDatabase from 'src/remotedb/index.ts';
+import { Device, DeviceType, MediaSlot, PlaylistContents, TrackType, Waveforms } from 'src/types.ts';
 
-import * as GetArtwork from './getArtwork';
-import * as GetMetadata from './getMetadata';
-import * as GetPlaylist from './getPlaylist';
-import * as GetWaveforms from './getWaveforms';
-
-enum LookupStrategy {
+import * as GetArtwork from './getArtwork.ts';
+import * as GetMetadata from './getMetadata.ts';
+import * as GetPlaylist from './getPlaylist.ts';
+import * as GetWaveforms from './getWaveforms.ts';
+	
+enum LookupStrategy {	
 	Remote,
 	Local,
 	NoneAvailable,
