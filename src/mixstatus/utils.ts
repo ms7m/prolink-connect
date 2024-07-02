@@ -1,4 +1,4 @@
-import {CDJStatus} from 'src/types';
+import {CDJStatus} from 'src/types.ts';
 
 const playingStates = [CDJStatus.PlayState.Playing, CDJStatus.PlayState.Looping];
 

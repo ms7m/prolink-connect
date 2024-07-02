@@ -1,11 +1,11 @@
-import StrictEventEmitter from 'strict-event-emitter-types';
+import {StrictEventEmitter} from 'strict-event-emitter-types';
 
 import {EventEmitter} from 'events';
 
-import {CDJStatus, DeviceID, MixstatusMode} from 'src/types';
-import {bpmToSeconds} from 'src/utils';
+import {CDJStatus, DeviceID, MixstatusMode} from 'src/types.ts';
+import {bpmToSeconds} from 'src/utils/index.ts';
 
-import {isPlaying, isStopping} from './utils';
+import {isPlaying, isStopping} from './utils.ts';
 
 export interface MixstatusConfig {
   /**

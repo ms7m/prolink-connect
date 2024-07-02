@@ -5,9 +5,9 @@ import {OperationOptions} from 'retry';
 
 import dgram, {Socket} from 'dgram';
 
-import {udpClose, udpRead, udpSend} from 'src/utils/udp';
+import {udpClose, udpRead, udpSend} from 'src/utils/udp.ts';
 
-import {rpc} from './xdr';
+import {rpc} from './xdr.ts';
 
 /**
  * The RPC auth stamp passed by the CDJs. It's unclear if this is actually
@@ -62,9 +62,9 @@ export class RpcConnection {
     this.mutex = new Mutex();
   }
 
+  // TODO: Figure out what logic we can do here to determine if the socket is still open.
+  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
   get connected() {
-    // TODO: Figure out what logic we can do here to determine if the socket is
-    // still open.
     return true;
   }
 

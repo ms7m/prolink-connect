@@ -1,4 +1,4 @@
-import {Table} from './orm';
+import {Table} from './orm.ts';
 
 export const generateSchema = () => `
   CREATE TABLE '${Table.Artist}' (

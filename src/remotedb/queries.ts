@@ -1,13 +1,13 @@
 import {Span} from '@sentry/tracing';
 
-import * as entities from 'src/entities';
+import * as entities from 'src/entities.ts';
 
-import {Item, Items, ItemType} from './message/item';
-import {Request, Response} from './message/types';
-import {Binary, UInt32} from './fields';
-import {Message} from './message';
-import {fieldFromDescriptor, findColor, renderItems} from './utils';
-import {Connection, LookupDescriptor, Query} from '.';
+import {Binary, UInt32} from './fields.ts';
+import {Connection, LookupDescriptor, Query} from './index.ts';
+import {Message} from './message/index.ts';
+import {Item, Items, ItemType} from './message/item.ts';
+import {Request, Response} from './message/types.ts';
+import {fieldFromDescriptor, findColor, renderItems} from './utils.ts';
 
 /**
  * This module contains logic for each type of query to understand what

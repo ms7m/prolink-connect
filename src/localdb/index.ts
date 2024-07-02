@@ -1,13 +1,13 @@
 import * as Sentry from '@sentry/node';
 import {Mutex} from 'async-mutex';
-import StrictEventEmitter from 'strict-event-emitter-types';
+import {StrictEventEmitter} from 'strict-event-emitter-types';
 
 import {createHash} from 'crypto';
 import {EventEmitter} from 'events';
 
-import DeviceManager from 'src/devices';
-import {fetchFile, FetchProgress} from 'src/nfs';
-import StatusEmitter from 'src/status';
+import DeviceManager from 'src/devices/index.ts';
+import {fetchFile, FetchProgress} from 'src/nfs/index.ts';
+import StatusEmitter from 'src/status/index.ts';
 import {
   Device,
   DeviceID,
@@ -15,11 +15,11 @@ import {
   MediaSlot,
   MediaSlotInfo,
   TrackType,
-} from 'src/types';
-import {getSlotName} from 'src/utils';
+} from 'src/types.ts';
+import {getSlotName} from 'src/utils/index.ts';
 
-import {MetadataORM} from './orm';
-import {hydrateDatabase, HydrationProgress} from './rekordbox';
+import {MetadataORM} from './orm.ts';
+import {hydrateDatabase, HydrationProgress} from './rekordbox.ts';
 
 /**
  * Rekordbox databases will only exist within these two slots

@@ -14,13 +14,14 @@ import {
   Playlist,
   PlaylistEntry,
   Track,
-} from 'src/entities';
-import RekordboxAnlz from 'src/localdb/kaitai/rekordbox_anlz.ksy';
-import RekordboxPdb from 'src/localdb/kaitai/rekordbox_pdb.ksy';
-import {MetadataORM, Table} from 'src/localdb/orm';
-import {makeCueLoopEntry} from 'src/localdb/utils';
-import {BeatGrid, CueAndLoop, HotcueButton, WaveformHD} from 'src/types';
-import {convertWaveformHDData} from 'src/utils/converters';
+} from 'src/entities.ts';
+import {MetadataORM, Table} from 'src/localdb/orm.ts';
+import {makeCueLoopEntry} from 'src/localdb/utils.ts';
+import {BeatGrid, CueAndLoop, HotcueButton, WaveformHD} from 'src/types.ts';
+import {convertWaveformHDData} from 'src/utils/converters.ts';
+
+import RekordboxAnlz from './kaitai/rekordbox_anlz.ksy';
+import RekordboxPdb from './kaitai/rekordbox_pdb.ksy';
 
 // NOTE: Kaitai doesn't currently have a good typescript exporter, so we will
 //       be making liberal usage of any in these utilities. We still guarantee

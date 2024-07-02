@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/node';
 import {Span} from '@sentry/tracing';
 
-import {Device, DeviceID, MediaSlot} from 'src/types';
-import {getSlotName} from 'src/utils';
+import {Device, DeviceID, MediaSlot} from 'src/types.ts';
+import {getSlotName} from 'src/utils/index.ts';
 
 import {
   fetchFile as fetchFileCall,
@@ -11,9 +11,9 @@ import {
   lookupPath,
   makeProgramClient,
   mountFilesystem,
-} from './programs';
-import {RetryConfig, RpcConnection, RpcProgram} from './rpc';
-import {mount, nfs} from './xdr';
+} from './programs.ts';
+import {RetryConfig, RpcConnection, RpcProgram} from './rpc.ts';
+import {mount, nfs} from './xdr.ts';
 
 export interface FetchProgress {
   read: number;
