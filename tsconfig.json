@@ -7,7 +7,6 @@
 		"moduleResolution": "NodeNext",
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
 		"sourceMap": true,
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
@@ -24,5 +23,5 @@
 		]
 	},
 	"exclude": ["dist", "node_modules"],
-	"include": ["./src/**/*.ts", "./env.d.ts", "tsconfig.json"]
+	"include": ["./**/*.ts", "tsconfig.json", "src/localdb/kaitai/index.ts"]
 }

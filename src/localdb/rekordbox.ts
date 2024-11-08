@@ -1,4 +1,4 @@
-import {KaitaiStream} from 'kaitai-struct';
+import * as KS from 'kaitai-struct';
 
 import {
 	Album,
@@ -17,9 +17,10 @@ import {MetadataORM, Table} from 'src/localdb/orm.ts';
 import {makeCueLoopEntry} from 'src/localdb/utils.ts';
 import {BeatGrid, CueAndLoop, HotcueButton, WaveformHD} from 'src/types.ts';
 import {convertWaveformHDData} from 'src/utils/converters.ts';
+import * as kaitai from './kaitai/index.ts';
 
-import RekordboxAnlz from './kaitai/rekordbox_anlz.ksy';
-import RekordboxPdb from './kaitai/rekordbox_pdb.ksy';
+const {RekordboxAnlz, RekordboxPdb} = kaitai;
+const {KaitaiStream} = KS;
 
 // NOTE: Kaitai doesn't currently have a good typescript exporter, so we will
 //       be making liberal usage of any in these utilities. We still guarantee

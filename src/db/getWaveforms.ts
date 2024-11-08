@@ -1,10 +1,10 @@
-import {Track} from 'src/entities';
-import LocalDatabase from 'src/localdb';
-import {loadAnlz} from 'src/localdb/rekordbox';
-import RemoteDatabase, {MenuTarget, Query} from 'src/remotedb';
-import {Device, DeviceID, MediaSlot, TrackType, Waveforms} from 'src/types';
+import {Track} from 'src/entities.ts';
+import LocalDatabase from 'src/localdb/index.ts';
+import {loadAnlz} from 'src/localdb/rekordbox.ts';
+import RemoteDatabase, {MenuTarget, Query} from 'src/remotedb/index.ts';
+import {Device, DeviceID, MediaSlot, TrackType, Waveforms} from 'src/types.ts';
 
-import {anlzLoader} from './utils';
+import {anlzLoader} from './utils.ts';
 
 export interface Options {
 	/**

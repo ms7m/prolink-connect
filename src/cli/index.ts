@@ -1,7 +1,7 @@
 import signale from 'signale';
 
-import {MixstatusProcessor} from 'src/mixstatus';
-import {bringOnline} from 'src/network';
+import {MixstatusProcessor} from 'src/mixstatus/index.ts';
+import {bringOnline} from 'src/network.ts';
 
 async function cli() {
 	signale.await('Bringing up prolink network');
