@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.2
+
+### Patch Changes
+
+- d26c184: Migrate to modern build system
+- 70c5065: add project metadata
+
 ## [v0.11.0] - 2022-10-24
 
 - Package updates. No changes
