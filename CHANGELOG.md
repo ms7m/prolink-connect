@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.4
+
+### Patch Changes
+
+- 1f9f791: Fix CJS module code
+
 ## 0.11.3
 
 ### Patch Changes
