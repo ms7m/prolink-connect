@@ -1,6 +1,6 @@
 {
 	"name": "@dmxjs/prolink-connect",
-	"version": "0.11.2",
+	"version": "0.11.1",
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -30,7 +30,8 @@
 		"test": "tsc --noEmit && node --experimental-vm-modules node_modules/jest/bin/jest.js",
 		"preversion": "yarn test",
 		"prepare": "ts-patch install -s",
-		"run-example": "node --import tsx example/index.ts"
+		"run-example": "node --import tsx example/index.ts",
+		"release": "changeset publish"
 	},
 	"keywords": [
 		"prolink-network",
