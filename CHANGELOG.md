@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.3
+
+### Patch Changes
+
+- 36fb383: fix cjs module resolution
+
 ## 0.11.2
 
 ### Patch Changes
