@@ -11,6 +11,14 @@
 	},
 	"sideEffects": false,
 	"author": "DMX.js Contributors, Evan Purkhiser",
+	"homepage": "https://github.com/dmx-js/prolink-connect",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dmx-js/prolink-connect.git"
+	},
+	"bugs": {
+		"url": "https://github.com/dmx-js/prolink-connect/issues"
+	},
 	"contributors": [
 		{
 			"name": "Alistair Smith",
