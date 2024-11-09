@@ -1,6 +1,8 @@
-import each from 'jest-each';
+import jestEach from 'jest-each';
 
-import {bpmToSeconds} from 'src/utils';
+import {bpmToSeconds} from 'src/utils/index.ts';
+
+const {default: each} = jestEach;
 
 describe('bpmToSeconds', () => {
 	each([

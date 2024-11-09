@@ -1,7 +1,7 @@
 import PromiseReadable from 'promise-readable';
 import {ReadableStreamBuffer} from 'stream-buffers';
 
-import * as Field from 'src/remotedb/fields';
+import * as Field from 'src/remotedb/fields.ts';
 
 describe('UInt8', () => {
 	let num: Field.NumberField;

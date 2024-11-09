@@ -4,7 +4,10 @@ import * as ip from 'ip-address';
 
 import {readFile} from 'fs/promises';
 
-import {Device, DeviceType} from 'src/types';
+import * as path from 'node:path';
+import {Device, DeviceType} from 'src/types.ts';
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export function readMock(path: string) {
 	return readFile(`${__dirname}/_data/${path}`);

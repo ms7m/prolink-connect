@@ -1,13 +1,14 @@
-import {mockDevice} from 'tests/utils';
+import {jest} from '@jest/globals';
+
+import {mockDevice} from 'tests/utils.ts';
 
 import {Socket} from 'dgram';
 import {EventEmitter} from 'events';
+import {VIRTUAL_CDJ_NAME} from 'src/constants.ts';
+import DeviceManager from 'src/devices/index.ts';
+import {deviceFromPacket} from 'src/devices/utils.ts';
 
-import {VIRTUAL_CDJ_NAME} from 'src/constants';
-import DeviceManager from 'src/devices';
-import {deviceFromPacket} from 'src/devices/utils';
-
-jest.mock('src/devices/utils', () => ({
+jest.mock('src/devices/utils.ts', () => ({
 	deviceFromPacket: jest.fn(),
 }));
 

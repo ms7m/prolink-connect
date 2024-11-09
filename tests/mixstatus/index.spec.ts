@@ -1,6 +1,8 @@
-import {MixstatusProcessor} from 'src/mixstatus';
-import {CDJStatus, MediaSlot, MixstatusMode, TrackType} from 'src/types';
-import {bpmToSeconds} from 'src/utils';
+import {jest} from '@jest/globals';
+
+import {MixstatusProcessor} from 'src/mixstatus/index.ts';
+import {CDJStatus, MediaSlot, MixstatusMode, TrackType} from 'src/types.ts';
+import {bpmToSeconds} from 'src/utils/index.ts';
 
 const MOCK_BPM = 60;
 
