@@ -135,6 +135,8 @@ class DeviceManager {
 			return;
 		}
 
+		device.ip.address;
+
 		if (device.name === VIRTUAL_CDJ_NAME) {
 			return;
 		}
