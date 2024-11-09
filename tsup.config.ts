@@ -9,11 +9,17 @@ export default defineConfig({
 	target: 'esnext',
 	platform: 'neutral',
 	skipNodeModulesBundle: true,
-	banner: {
-		js: `
-			import {createRequire} from 'module';
-			const require = createRequire(import.meta.url);
-		`,
+	banner: ctx => {
+		if (ctx.format !== 'esm') {
+			return {};
+		}
+
+		return {
+			js: `
+				import {createRequire} from 'module';
+				const require = createRequire(import.meta.url);
+			`,
+		};
 	},
 	esbuildPlugins: [
 		kaitaiLoader({
