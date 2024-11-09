@@ -1,11 +1,9 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
 		"module": "NodeNext",
+		"target": "ESNext",
 		"strict": true,
-		"strictPropertyInitialization": true,
 		"moduleResolution": "NodeNext",
-		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"sourceMap": true,
 		"allowImportingTsExtensions": true,

@@ -5,21 +5,35 @@ import {mockDevice} from 'tests/utils.ts';
 import {Socket} from 'dgram';
 import {EventEmitter} from 'events';
 import {VIRTUAL_CDJ_NAME} from 'src/constants.ts';
-import DeviceManager from 'src/devices/index.ts';
-import {deviceFromPacket} from 'src/devices/utils.ts';
 
-jest.mock('src/devices/utils.ts', () => ({
+jest.unstable_mockModule('src/devices/utils.ts', () => ({
 	deviceFromPacket: jest.fn(),
 }));
 
-const dfpMock = deviceFromPacket as jest.Mock<ReturnType<typeof deviceFromPacket>>;
+jest.unstable_mockModule('src/devices/index.ts', () => ({
+	default: jest.fn().mockImplementation(() => {
+		return {getDeviceEnsured: jest.fn()};
+	}),
+}));
+
+async function getDFPMock() {
+	const {deviceFromPacket} = await import('src/devices/utils.ts');
+	const DeviceManager = await import('src/devices/index.ts').then(m => m.default);
+
+	return {
+		dfpMock: deviceFromPacket as jest.Mock<typeof deviceFromPacket>,
+		DeviceManager: DeviceManager as jest.MockedClass<typeof DeviceManager>,
+	};
+}
 
 jest.useFakeTimers();
 
 describe('DeviceManager', () => {
 	const mockSocket = new EventEmitter() as Socket;
 
-	it('produces device lifecycle events', () => {
+	it('produces device lifecycle events', async () => {
+		const {dfpMock, DeviceManager} = await getDFPMock();
+
 		const dm = new DeviceManager(mockSocket, {deviceTimeout: 100});
 
 		const announceFn = jest.fn();
@@ -41,7 +55,7 @@ describe('DeviceManager', () => {
 		// Trigger device announcment
 		mockSocket.emit('message', deadBeef);
 
-		expect(deviceFromPacket).toHaveBeenCalledWith(deadBeef);
+		expect(dfpMock).toHaveBeenCalledWith(deadBeef);
 		expect(connectedFn).toHaveBeenCalledWith(deviceExample);
 		expect(announceFn).toHaveBeenCalledWith(deviceExample);
 		expect(dm.devices.size).toBe(1);
@@ -89,7 +103,8 @@ describe('DeviceManager', () => {
 		expect(disconnectedFn).toHaveBeenCalledWith(deviceExample);
 	});
 
-	it('does not announce invalid announce packets', () => {
+	it('does not announce invalid announce packets', async () => {
+		const {dfpMock, DeviceManager} = await getDFPMock();
 		const dm = new DeviceManager(mockSocket, {deviceTimeout: 100});
 
 		const announceFn = jest.fn();
@@ -104,7 +119,8 @@ describe('DeviceManager', () => {
 		expect(dm.devices.size).toBe(0);
 	});
 
-	it('does not announce or track virtual CDJ announcments', () => {
+	it('does not announce or track virtual CDJ announcments', async () => {
+		const {dfpMock, DeviceManager} = await getDFPMock();
 		const dm = new DeviceManager(mockSocket, {deviceTimeout: 100});
 
 		const announceFn = jest.fn();
@@ -122,6 +138,7 @@ describe('DeviceManager', () => {
 	});
 
 	it('waits for a device to appear using getDeviceEnsured', async () => {
+		const {dfpMock, DeviceManager} = await getDFPMock();
 		const dm = new DeviceManager(mockSocket, {deviceTimeout: 100});
 
 		const deviceExample = mockDevice();
@@ -138,6 +155,7 @@ describe('DeviceManager', () => {
 	});
 
 	it('timesout when waiting for device using getDeviceEnsured', async () => {
+		const {DeviceManager} = await getDFPMock();
 		const dm = new DeviceManager(mockSocket, {deviceTimeout: 100});
 
 		const gotDevice = dm.getDeviceEnsured(1, 150);
@@ -147,6 +165,7 @@ describe('DeviceManager', () => {
 	});
 
 	it('immedaitely returns a device when it already exists using getDeviceEnsured', async () => {
+		const {dfpMock, DeviceManager} = await getDFPMock();
 		const dm = new DeviceManager(mockSocket, {deviceTimeout: 100});
 		const deviceExample = mockDevice();
 		dfpMock.mockReturnValue(deviceExample);

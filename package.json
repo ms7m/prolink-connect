@@ -27,7 +27,7 @@
 	"scripts": {
 		"build": "tsup",
 		"build-docs": "typedoc --out docs src/index.ts",
-		"test": "node --import tsx --experimental-vm-modules node_modules/jest/bin/jest.js",
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
 		"preversion": "yarn test",
 		"prepare": "ts-patch install -s",
 		"run-example": "node --import tsx example/index.ts"
