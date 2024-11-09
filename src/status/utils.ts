@@ -1,5 +1,5 @@
-import {PROLINK_HEADER} from 'src/constants';
-import {CDJStatus, MediaSlotInfo} from 'src/types';
+import {PROLINK_HEADER} from 'src/constants.ts';
+import {CDJStatus, MediaSlotInfo} from 'src/types.ts';
 
 const MAX_INT32 = Math.pow(2, 32) - 1;
 const MAX_INT16 = Math.pow(2, 16) - 1;

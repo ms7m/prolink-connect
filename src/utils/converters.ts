@@ -1,4 +1,4 @@
-import {WaveformHD} from 'src/types';
+import {WaveformHD} from 'src/types.ts';
 
 /**
  * Extracts a specific bitmask, shifting it to the bitmask.

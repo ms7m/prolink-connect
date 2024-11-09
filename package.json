@@ -1,6 +1,6 @@
 {
 	"name": "@dmxjs/prolink-connect",
-	"version": "0.11.2",
+	"version": "0.11.1",
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -27,7 +27,7 @@
 	"scripts": {
 		"build": "tsup",
 		"build-docs": "typedoc --out docs src/index.ts",
-		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+		"test": "tsc --noEmit && node --experimental-vm-modules node_modules/jest/bin/jest.js",
 		"preversion": "yarn test",
 		"prepare": "ts-patch install -s",
 		"run-example": "node --import tsx example/index.ts"
@@ -48,6 +48,7 @@
 		"node": ">=16.0.0"
 	},
 	"dependencies": {
+		"@changesets/cli": "^2.27.9",
 		"@types/better-sqlite3": "^7.6.11",
 		"@types/ip-address": "^7.0.0",
 		"@types/lodash": "^4.17.13",
