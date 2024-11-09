@@ -42,7 +42,10 @@
 		"djm"
 	],
 	"files": [
-		"lib/"
+		"LICENSE",
+		"dist",
+		"package.json",
+		"README.md"
 	],
 	"engines": {
 		"node": ">=16.0.0"
