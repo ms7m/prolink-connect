@@ -19,7 +19,8 @@
 		"build-docs": "typedoc --out docs src/index.ts",
 		"test": "jest",
 		"preversion": "yarn test",
-		"prepare": "ts-patch install -s"
+		"prepare": "ts-patch install -s",
+		"run-example": "node --import tsx example/index.ts"
 	},
 	"files": [
 		"lib/"
@@ -64,11 +65,13 @@
 		"prettier": "^3.3.3",
 		"signale": "^1.4.0",
 		"stream-buffers": "^3.0.3",
+		"terminal-image": "^3.0.0",
 		"ts-jest": "^29.2.5",
 		"ts-loader": "^9.5.1",
 		"ts-node": "^10.9.2",
 		"ts-patch": "^3.2.1",
 		"tsup": "^8.3.5",
+		"tsx": "^4.19.2",
 		"typedoc": "^0.26.11",
 		"typedoc-plugin-missing-exports": "^3.0.0",
 		"typescript": "^5.6.3",

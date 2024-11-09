@@ -1,3 +1,9 @@
+<h3 align="center">
+	This library is a fork of <a href="https://github.com/evanpurkhiser/prolink-connect">evanpurkhiser/prolink-connect</a> with a more modern build system and other improvements.
+</h3>
+
+---
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1421724/81906669-75e9e400-957b-11ea-8f1f-38ca25dd5bed.png" alt="prolink-connect" />
 </p>

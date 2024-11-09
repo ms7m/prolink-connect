@@ -1,4 +1,5 @@
 declare module '*.ksy';
+
 declare module 'kaitai-struct-compiler' {
 	declare class KaitaiStructCompiler {
 		public constructor();
