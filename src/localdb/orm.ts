@@ -1,7 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck - TODO: Fix types that resulted when updating better-sqlite3 from the fork (the code still works, but types are not correct)
 
-import sqlite3 from 'better-sqlite3';
+//import sqlite3 from 'better-sqlite3';
+// use bun instead of better-sqlite3
+import sqlite3 from 'bun:sqlite3';
+
+
 import lodash from 'lodash';
 
 import {EntityFK, Playlist, PlaylistEntry, Track} from 'src/entities';
