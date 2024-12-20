@@ -1,21 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck - TODO: Fix types that resulted when updating better-sqlite3 from the fork (the code still works, but types are not correct)
-
-//import sqlite3 from 'better-sqlite3';
-// use bun instead of better-sqlite3
-import sqlite3 from 'bun:sqlite3';
-
-
+import { RocksDB } from 'rocksdb';
 import lodash from 'lodash';
+import { EntityFK, Playlist, PlaylistEntry, Track } from '../entities.js';
 
-import {EntityFK, Playlist, PlaylistEntry, Track} from 'src/entities';
-
-import {generateSchema} from './schema';
-
-const {camelCase, mapKeys, mapValues, partition, snakeCase} = lodash;
+const { camelCase, mapKeys, mapValues, partition, snakeCase } = lodash;
 
 /**
- * Table names available
+ * Table names available - we'll use these as prefixes for our RocksDB keys
  */
 export enum Table {
 	Artist = 'artist',
@@ -50,126 +40,152 @@ const trackRelationTableMap: Record<string, string> = {
 };
 
 /**
- * Object Relation Mapper as an abstraction ontop of a local database
+ * Object Relation Mapper as an abstraction on top of a RocksDB
  * connection.
- *
- * May be used to populate a metadata database and query objects.
  */
 export class MetadataORM {
-	#conn: sqlite3.Database;
+	#db: RocksDB;
+	#indices: Map<string, Set<string>>;
 
 	constructor() {
-		this.#conn = sqlite3(':memory:');
-		this.#conn.exec(generateSchema());
+		this.#db = new RocksDB('metadata.db');
+		this.#indices = new Map();
+		
+		// Initialize indices for each table
+		Object.values(Table).forEach(table => {
+			this.#indices.set(table, new Set());
+		});
 	}
 
 	close() {
-		this.#conn.close();
+		this.#db.close();
+	}
+
+	/**
+	 * Generate a key for storing in RocksDB
+	 */
+	private generateKey(table: Table, id: number | string): string {
+		if (id === undefined || id === null) {
+			throw new Error(`Invalid id ${id} for table ${table}`);
+		}
+		return `${table}:${id}`;
 	}
 
 	/**
 	 * Insert a entity object into the database.
 	 */
 	insertEntity(table: Table, object: Record<string, any>) {
-		const fields = Object.entries<any>(object);
+		const id = object.id;
+		const key = this.generateKey(table, id);
 
-		const slots = fields.map(f => `:${f[0]}`).join(', ');
-		const columns = fields.map(f => snakeCase(f[0])).join(', ');
+		// Translate date and booleans and handle undefined
+		const data = mapValues(object, value => {
+			if (value === undefined) {
+				return null;
+			}
+			if (value instanceof Date) {
+				return value.toISOString();
+			}
+			if (typeof value === 'boolean') {
+				return Number(value);
+			}
+			return value;
+		});
 
-		const stmt = this.#conn.prepare(`insert into ${table} (${columns}) values (${slots})`);
-
-		// Translate date and booleans
-		const data = mapValues(object, value =>
-			value instanceof Date
-				? value.toISOString()
-				: typeof value === 'boolean'
-					? Number(value)
-					: value,
-		);
-
-		stmt.run(data);
+		// Store the serialized object
+		this.#db.putSync(key, JSON.stringify(data));
+		
+		// Update index
+		this.#indices.get(table)?.add(key);
 	}
 
 	/**
 	 * Locate a track by ID in the database
 	 */
 	findTrack(id: number): Track {
-		const row: Record<string, any> = this.#conn
-			.prepare(`select * from ${Table.Track} where id = ?`)
-			.get(id);
+		const key = this.generateKey(Table.Track, id);
+		const trackData = this.#db.getSync(key);
+		
+		if (!trackData) {
+			throw new Error(`Track ${id} not found`);
+		}
 
-		// Map row columns to camel case compatability
-		const trackRow = mapKeys(row, (_, k) => camelCase(k)) as Track<EntityFK.WithFKs>;
+		// Parse the stored JSON data
+		const trackRow = JSON.parse(trackData);
+		const track = mapKeys(trackRow, (_, k) => camelCase(k)) as Track<EntityFK.WithFKs>;
 
-		trackRow.beatGrid = null;
-		trackRow.cueAndLoops = null;
-		trackRow.waveformHd = null;
+		track.beatGrid = null;
+		track.cueAndLoops = null;
+		track.waveformHd = null;
 
-		// Explicitly restore dates and booleans
-		trackRow.autoloadHotcues = !!trackRow.autoloadHotcues;
-		trackRow.kuvoPublic = !!trackRow.kuvoPublic;
-
-		// Explicity restore date objects
-		trackRow.analyzeDate = new Date(trackRow.analyzeDate as any);
-		trackRow.dateAdded = new Date(trackRow.dateAdded as any);
+		// Restore dates and booleans
+		track.autoloadHotcues = !!track.autoloadHotcues;
+		track.kuvoPublic = !!track.kuvoPublic;
+		track.analyzeDate = track.analyzeDate ? new Date(track.analyzeDate) : new Date();
+		track.dateAdded = track.dateAdded ? new Date(track.dateAdded) : new Date();
 
 		// Query all track relationships
-		const track = trackRow as any;
-
 		for (const relation of trackRelations) {
 			const fkName = `${relation}Id`;
-
-			const fk = track[fkName];
+			const fk = track[fkName as keyof typeof track];
 			const table = snakeCase(trackRelationTableMap[relation] ?? relation);
 
-			// Swap fk for relation key
-			delete track[fkName];
-			track[relation] = null;
+			delete (track as any)[fkName];
+			(track as any)[relation] = null;
 
-			if (fk === null) {
+			if (fk === null || fk === undefined) {
 				continue;
 			}
 
-			const relationItem: Record<string, any> = this.#conn
-				.prepare(`select * from ${table} where id = ?`)
-				.get(fk);
+			if (typeof fk !== 'string' && typeof fk !== 'number') {
+				continue;
+			}
 
-			track[relation] = relationItem;
+			const relationKey = this.generateKey(table as Table, fk);
+			const relationData = this.#db.getSync(relationKey);
+			
+			if (relationData) {
+				(track as any)[relation] = JSON.parse(relationData);
+			}
 		}
 
 		return track as Track;
 	}
 
 	/**
-	 * Query for a list of {folders, playlists, tracks} given a playlist ID. If
-	 * no ID is provided the root list is queried.
-	 *
-	 * Note that when tracks are returned there will be no folders or playslists.
-	 * But the API here is simpler to assume there could be.
-	 *
-	 * Tracks are returned in the order they are placed on the playlist.
+	 * Query for a list of {folders, playlists, tracks} given a playlist ID.
 	 */
 	findPlaylist(playlistId?: number) {
-		const parentCondition = playlistId === undefined ? 'parent_id is ?' : 'parent_id = ?';
+		const playlistPrefix = this.generateKey(Table.Playlist, playlistId ?? 'root');
+		const playlistEntries: Playlist[] = [];
 
-		// Lookup playlists / folders for this playlist ID
-		const playlistRows: Array<Record<string, any>> = this.#conn
-			.prepare(`select * from ${Table.Playlist} where ${parentCondition}`)
-			.all(playlistId);
+		// Scan all playlists to find children
+		for (const key of this.#indices.get(Table.Playlist) ?? []) {
+			const data = this.#db.getSync(key);
+			if (data) {
+				const playlist = JSON.parse(data) as Playlist;
+				if (playlist.parentId === playlistId) {
+						playlistEntries.push(playlist);
+				}
+			}
+		}
 
-		const [folders, playlists] = partition(
-			playlistRows.map(row => mapKeys(row, (_, k) => camelCase(k)) as Playlist),
-			p => p.isFolder,
-		);
+		const [folders, playlists] = partition(playlistEntries, p => p.isFolder);
 
-		const entryRows: Array<Record<string, any>> = this.#conn
-			.prepare(`select * from ${Table.PlaylistEntry} where playlist_id = ?`)
-			.all(playlistId);
+		// Find playlist entries
+		const entryPrefix = this.generateKey(Table.PlaylistEntry, playlistId ?? 'root');
+		const trackEntries: PlaylistEntry<EntityFK.WithFKs>[] = [];
 
-		const trackEntries = entryRows.map(
-			row => mapKeys(row, (_, k) => camelCase(k)) as PlaylistEntry<EntityFK.WithFKs>,
-		);
+		for (const key of this.#indices.get(Table.PlaylistEntry) ?? []) {
+			const data = this.#db.getSync(key);
+			if (data) {
+				const entry = JSON.parse(data) as PlaylistEntry<EntityFK.WithFKs>;
+				if (entry.playlistId === playlistId) {
+						trackEntries.push(entry);
+				}
+			}
+		}
 
-		return {folders, playlists, trackEntries};
+		return { folders, playlists, trackEntries };
 	}
 }
